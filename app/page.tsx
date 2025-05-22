@@ -42,7 +42,7 @@ export default function Page() {
 
         <div className="mb-8">
           <div className="w-full max-w-xs sm:max-w-sm md:max-w-md mx-auto overflow-hidden rounded-md shadow" style={{ maxHeight: '400px' }}>
-            <img src="/Photo.jpg" alt="Cardiology Clinic" className="w-full h-auto object-contain" />
+            <img src="/photo.jpg" alt="Cardiology Clinic" className="w-full h-auto object-contain" />
           </div>
         </div>
 
@@ -132,6 +132,7 @@ export default function Page() {
                 setFormSubmitted(true);
               }}
               className="space-y-4"
+              data-recaptcha="true"
             >
               {/* access_key is already included in fetch, no need to add here */}
 
@@ -139,6 +140,7 @@ export default function Page() {
               <Input type="email" name="email" placeholder="Email Address" required />
               <Input type="tel" name="phone" placeholder="Your phone number if you prefer to be called" />
               <Textarea name="message" placeholder="Your Message" rows={4} required />
+              <input type="hidden" name="captcha" value="true" />
               <Button type="submit" disabled={loading}>
                 {loading ? 'Sending...' : 'Send'}
               </Button>
