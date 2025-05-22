@@ -42,7 +42,7 @@ export default function Page() {
 
         <div className="mb-8">
           <div className="w-full max-w-xs sm:max-w-sm md:max-w-md mx-auto overflow-hidden rounded-md shadow" style={{ maxHeight: '400px' }}>
-            <img src="/photo.jpg" alt="Cardiology Clinic" className="w-full h-auto object-contain" />
+            <img src="/Photo.jpg" alt="Cardiology Clinic" className="w-full h-auto object-contain" />
           </div>
         </div>
 
