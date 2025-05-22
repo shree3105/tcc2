@@ -21,8 +21,9 @@ export async function POST(req: Request) {
     }
 
     return NextResponse.json({ success: true });
-  } catch (err: any) {
-    console.error('Unexpected error in API route:', err.message);
-    return NextResponse.json({ error: err.message || 'Unknown error' }, { status: 500 });
+  } catch (err) {
+    const error = err as Error;
+    console.error('Unexpected error in API route:', error.message);
+    return NextResponse.json({ error: error.message || 'Unknown error' }, { status: 500 });
   }
 }
