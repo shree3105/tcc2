@@ -192,6 +192,9 @@ export default function Page() {
 <a href="https://www.nuffieldhealth.com/consultants/dr-sujata-khambekar" target="_blank" rel="noopener noreferrer">
   <img src="/nuffield-logo.png" alt="Nuffield Health" className="h-10 transition duration-300 ease-in-out hover:blur-sm" />
 </a>
+<a href="https://www.allianz.co.uk/" target="_blank" rel="noopener noreferrer">
+  <img src="/allianz-logo.png" alt="Allianz Healthcare" className="h-10 transition duration-300 ease-in-out hover:blur-sm" />
+</a>
         </div>
         <p className="text-xs">© 2019–{new Date().getFullYear()} The Cardiology Clinic. All rights reserved.</p>
       </footer>
