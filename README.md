@@ -27,9 +27,16 @@ A modern, mobile-friendly website for Dr Sujata Khambekar's cardiology practice,
    ```
 
 2. **Set up environment variables**
-   Create a `.env.local` file:
+   Create a `.env.local` file with the following variables:
    ```env
+   # Database Configuration
    DATABASE_URL=your_neon_database_connection_string_here
+   
+   # Web3Forms Configuration
+   NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY=your_web3forms_access_key_here
+   
+   # Doctify Widget Configuration
+   NEXT_PUBLIC_DOCTIFY_WIDGET_ID=your_doctify_widget_id_here
    ```
 
 3. **Set up the database**
@@ -62,12 +69,12 @@ CREATE TABLE IF NOT EXISTS submissions (
 ## Configuration
 
 ### Web3Forms
-- **Access Key**: `0e7f0c0a-5e94-46c9-9e95-cd71a82b8c38`
+- **Access Key**: Set in your environment variables
 - **Endpoint**: `https://api.web3forms.com/submit`
 
 ### Doctify Reviews
-- **Widget ID**: `037ze27k`
-- **Script URL**: `https://www.doctify.com/get-script?widget_container_id=037ze27k&type=carousel-widget&tenant=athena-uk&language=en&profileType=specialist&layoutType=layoutA&slugs=dr-sujata-khambekar&background=000&itemBackground=ffffff&rating=5`
+- **Widget ID**: Configure in your environment
+- **Script URL**: Set up in your Doctify dashboard
 
 ## API Endpoints
 
@@ -79,7 +86,10 @@ The application is ready for deployment on Vercel:
 
 1. Push code to GitHub
 2. Connect repository to Vercel
-3. Set `DATABASE_URL` environment variable
+3. Set environment variables in Vercel dashboard:
+   - `DATABASE_URL`
+   - `NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY`
+   - `NEXT_PUBLIC_DOCTIFY_WIDGET_ID`
 4. Deploy!
 
 ## File Structure

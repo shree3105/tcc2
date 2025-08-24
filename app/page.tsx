@@ -10,7 +10,8 @@ export default function Home() {
 
   useEffect(() => {
     const script = document.createElement('script');
-    script.src = 'https://www.doctify.com/get-script?widget_container_id=037ze27k&type=carousel-widget&tenant=athena-uk&language=en&profileType=specialist&layoutType=layoutA&slugs=dr-sujata-khambekar&background=000&itemBackground=ffffff&rating=5';
+    const widgetId = process.env.NEXT_PUBLIC_DOCTIFY_WIDGET_ID || '037ze27k';
+    script.src = `https://www.doctify.com/get-script?widget_container_id=${widgetId}&type=carousel-widget&tenant=athena-uk&language=en&profileType=specialist&layoutType=layoutA&slugs=dr-sujata-khambekar&background=000&itemBackground=ffffff&rating=5`;
     script.async = true;
     document.body.appendChild(script);
     return () => {
@@ -53,11 +54,12 @@ export default function Home() {
       });
 
       // Send to Web3Forms
+      const web3formsAccessKey = process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY || '0e7f0c0a-5e94-46c9-9e95-cd71a82b8c38';
       await fetch('https://api.web3forms.com/submit', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          access_key: '0e7f0c0a-5e94-46c9-9e95-cd71a82b8c38',
+          access_key: web3formsAccessKey,
           name,
           email,
           phone,
@@ -122,7 +124,7 @@ export default function Home() {
             {/* Reviews Section */}
             <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
               <h2 className="text-xl font-bold text-gray-900 mb-4">Patient Reviews</h2>
-              <div className="w-full min-h-64 overflow-visible rounded-lg" id="037ze27k"></div>
+              <div className="w-full min-h-64 overflow-visible rounded-lg" id={process.env.NEXT_PUBLIC_DOCTIFY_WIDGET_ID || '037ze27k'}></div>
             </div>
           </div>
 

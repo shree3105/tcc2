@@ -4,7 +4,8 @@
 
 ### 1. Environment Variables
 - [ ] Set `DATABASE_URL` in Vercel dashboard with your Neon connection string
-- [ ] Ensure the connection string is: `postgresql://neondb_owner:npg_r2SALp7lsNJd@ep-plain-hall-abr68bhp-pooler.eu-west-2.aws.neon.tech/neondb?sslmode=require&channel_binding=require`
+- [ ] Set `WEB3FORMS_ACCESS_KEY` in Vercel dashboard
+- [ ] Set `DOCTIFY_WIDGET_ID` in Vercel dashboard
 
 ### 2. Database Setup
 - [ ] Run the SQL commands from `database-schema.sql` in your Neon database
@@ -36,7 +37,10 @@ git push origin main
 
 ### 2. Deploy to Vercel
 1. Connect your GitHub repository to Vercel
-2. Set the environment variable `DATABASE_URL` in Vercel dashboard
+2. Set the environment variables in Vercel dashboard:
+   - `DATABASE_URL`
+   - `WEB3FORMS_ACCESS_KEY`
+   - `DOCTIFY_WIDGET_ID`
 3. Deploy!
 
 ### 3. Post-Deployment Verification
@@ -50,11 +54,11 @@ git push origin main
 ## 🔧 Configuration Details
 
 ### Web3Forms
-- **Access Key**: `0e7f0c0a-5e94-46c9-9e95-cd71a82b8c38`
+- **Access Key**: Set via environment variable
 - **Endpoint**: `https://api.web3forms.com/submit`
 
 ### Doctify Widget
-- **Widget ID**: `037ze27k`
+- **Widget ID**: Set via environment variable
 - **Script**: Automatically loaded in the page
 
 ### Database
