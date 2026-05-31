@@ -23,12 +23,12 @@ export default function AboutPage() {
         <div className="grid gap-12 lg:grid-cols-3">
           {/* Photo + facts */}
           <div className="lg:col-span-1">
-            <div className="overflow-hidden rounded-2xl shadow-card">
+            <div className="mx-auto max-w-sm overflow-hidden rounded-2xl shadow-card lg:max-w-none">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={practice.consultant.photo}
                 alt={`${practice.consultant.name}, ${practice.consultant.title}`}
-                className="w-full object-cover"
+                className="aspect-[4/5] w-full object-cover object-top"
               />
             </div>
             <div className="card mt-6 p-6">

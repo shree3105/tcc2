@@ -8,7 +8,7 @@ export default function HomePage() {
     <>
       {/* Hero */}
       <section className="bg-gradient-to-b from-primary-50 to-sand-50">
-        <div className="container-page grid items-center gap-10 py-14 lg:grid-cols-2 lg:py-20">
+        <div className="container-page grid items-center gap-10 py-10 md:grid-cols-2 md:py-16 lg:py-20">
           <div>
             <p className="inline-flex items-center gap-2 rounded-full bg-white px-4 py-1.5 text-sm font-semibold text-primary-700 shadow-sm">
               <span className="h-2 w-2 rounded-full bg-green-500" aria-hidden="true" />
@@ -36,19 +36,20 @@ export default function HomePage() {
             </p>
           </div>
 
-          <div className="relative">
+          {/* Photo — fixed aspect ratio so it stays balanced on every device */}
+          <div className="relative mx-auto w-full max-w-sm md:order-last md:max-w-md lg:max-w-none">
             <div className="overflow-hidden rounded-2xl shadow-card">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={practice.consultant.photo}
                 alt={`${practice.consultant.name}, ${practice.consultant.title}`}
-                className="h-full w-full object-cover"
+                className="aspect-[4/5] w-full object-cover object-top"
               />
             </div>
             {/* Award badge */}
             <div className="absolute -bottom-5 -left-4 hidden rounded-xl bg-white p-3 shadow-card sm:block">
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/ptexperience.png" alt="Doctify Great Patient Experience Award 2026" className="h-20 w-auto" />
+              <img src="/ptexperience.png" alt="Doctify Great Patient Experience Award 2026" className="h-16 w-auto lg:h-20" />
             </div>
           </div>
         </div>
