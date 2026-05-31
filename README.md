@@ -1,119 +1,96 @@
 # The Cardiology Clinic
 
-A modern, mobile-friendly website for Dr Sujata Khambekar's cardiology practice, built with Next.js and integrated with Neon DB and Web3Forms.
+Modern, accessible website for Dr Sujata Khambekar's private cardiology practice
+in Poole & Bournemouth. Built with Next.js (App Router), designed for an older
+patient base (large type, high contrast, clear navigation) and **ready to plug
+in** to practice-management software (Carebit / Semble / TouchPoints / iMedDoc).
 
 ## Features
 
-- **Modern Design**: Clean, professional medical practice website
-- **Mobile-First**: Optimized for all devices and screen sizes
-- **Self-Referral Form**: Easy-to-use form with dual submission (Neon DB + Web3Forms)
-- **Patient Reviews**: Integrated Doctify reviews widget
-- **Insurance Partners**: Footer with all major insurance provider logos
-- **Responsive Layout**: Beautiful design that works on desktop and mobile
+- **Multi-page site**: Home, About, Conditions & Services, Fees & Insurance,
+  Patient Information, Referrals, Contact, plus a `/book` appointments page.
+- **Accessibility-first**: 18px base text, large tap targets, visible keyboard
+  focus, skip-to-content link, semantic HTML, reduced-motion support.
+- **Self-referral & GP-referral forms**: dual submission (Neon Postgres + email
+  via Web3Forms).
+- **Integration-ready layer**: online booking, patient portal and online
+  payments are all driven by environment variables — connect a provider later
+  with **zero code changes**. See [INTEGRATIONS.md](./INTEGRATIONS.md).
+- **Patient reviews** via Doctify, **insurer logos**, SEO metadata.
 
 ## Tech Stack
 
-- **Frontend**: Next.js 15, React 19, TypeScript
-- **Styling**: Tailwind CSS 3
-- **Database**: Neon DB (PostgreSQL)
-- **Form Handling**: Web3Forms + Custom API
-- **Deployment**: Vercel-ready
+Next.js 15 · React 19 · TypeScript · Tailwind CSS 3 · Neon (Postgres) · Vercel
 
 ## Quick Start
 
-1. **Install dependencies**
-   ```bash
-   npm install
-   ```
+```bash
+npm install
+cp .env.example .env.local   # then fill in DATABASE_URL etc.
+npm run dev                  # http://localhost:3000
+```
 
-2. **Set up environment variables**
-   Create a `.env.local` file with the following variables:
-   ```env
-   # Database Configuration
-   DATABASE_URL=your_neon_database_connection_string_here
-   
-   # Web3Forms Configuration
-   NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY=your_web3forms_access_key_here
-   
-   # Doctify Widget Configuration
-   NEXT_PUBLIC_DOCTIFY_WIDGET_ID=your_doctify_widget_id_here
-   ```
+## Environment Variables
 
-3. **Set up the database**
-   Connect to your Neon database and run the SQL commands from `database-schema.sql`
+See [.env.example](./.env.example) for the full list. The only server-side
+secret is `DATABASE_URL`; everything else is a public (`NEXT_PUBLIC_*`) URL or
+key. Integration URLs can be left blank until a provider is live.
 
-4. **Run the development server**
-   ```bash
-   npm run dev
-   ```
+## Project Structure
 
-5. **Open your browser**
-   Navigate to [http://localhost:3000](http://localhost:3000)
+```
+app/
+  layout.tsx            # Shared header, footer, fonts, metadata
+  page.tsx              # Home
+  about/                # About Dr Khambekar
+  services/             # Conditions & Services
+  fees/                 # Fees & Insurance
+  patient-info/         # What to expect / FAQs
+  referrals/            # Self-referral + GP referral forms
+  contact/              # Contact details & locations
+  book/                 # Online booking (integration-ready)
+  api/
+    self-refer/route.ts # Self-referral -> Neon
+    gp-refer/route.ts   # GP referral -> Neon
+components/             # Header, Footer, BookingWidget, forms, etc.
+lib/
+  config.ts             # Practice details + integration env layer (edit here)
+  db.ts                 # Neon connection pool
+```
+
+To update clinic details (phone, email, locations, areas of interest),
+edit [lib/config.ts](./lib/config.ts) — it is the single source of truth.
 
 ## Database Setup
 
-Run the following SQL commands in your Neon database:
-
 ```sql
 CREATE TABLE IF NOT EXISTS submissions (
-    id SERIAL PRIMARY KEY,
-    name VARCHAR(255) NOT NULL,
-    email VARCHAR(255) NOT NULL,
-    phone VARCHAR(50),
-    message TEXT NOT NULL,
-    created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-    updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+  id SERIAL PRIMARY KEY,
+  name VARCHAR(255) NOT NULL,
+  email VARCHAR(255) NOT NULL,
+  phone VARCHAR(50),
+  message TEXT NOT NULL,
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 ```
 
-## Configuration
+The `gp_referrals` table can be created with:
 
-### Web3Forms
-- **Access Key**: Set in your environment variables
-- **Endpoint**: `https://api.web3forms.com/submit`
-
-### Doctify Reviews
-- **Widget ID**: Configure in your environment
-- **Script URL**: Set up in your Doctify dashboard
-
-## API Endpoints
-
-- `POST /api/self-refer` - Handle form submissions and store in Neon DB
+```bash
+DATABASE_URL="postgres://..." node create_gp_table.js
+```
 
 ## Deployment
 
-The application is ready for deployment on Vercel:
+This branch is safe to preview on Vercel without touching production. When
+ready, merge to `main`. Set environment variables in the Vercel dashboard for
+both Preview and Production environments.
 
-1. Push code to GitHub
-2. Connect repository to Vercel
-3. Set environment variables in Vercel dashboard:
-   - `DATABASE_URL`
-   - `NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY`
-   - `NEXT_PUBLIC_DOCTIFY_WIDGET_ID`
-4. Deploy!
-
-## File Structure
-
-```
-├── app/
-│   ├── api/self-refer/route.ts  # Form submission API
-│   ├── globals.css              # Global styles
-│   └── page.tsx                 # Main page component
-├── lib/
-│   └── db.ts                    # Database connection
-├── public/                      # Static assets (images, logos)
-├── database-schema.sql          # Database schema
-├── tailwind.config.js           # Tailwind configuration
-├── vercel.json                  # Vercel configuration
-└── package.json                 # Dependencies
-```
-
-## Contact Information
+## Contact
 
 - **Email**: appointments@thecardiology.clinic
 - **Phone**: 0776 151 3391
-- **Response Time**: Same day or within 24 hours
 
 ## License
 
-Private - The Cardiology Clinic
+Private — The Cardiology Clinic

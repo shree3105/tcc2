@@ -1,7 +1,14 @@
 const { Pool } = require('pg');
 
+// Connection string MUST come from the environment. Never hard-code credentials.
+// Run with:  DATABASE_URL="postgres://..." node create_gp_table.js
+if (!process.env.DATABASE_URL) {
+  console.error('Error: DATABASE_URL environment variable is required.');
+  process.exit(1);
+}
+
 const pool = new Pool({
-  connectionString: process.env.DATABASE_URL || 'postgresql://neondb_owner:npg_r2SALp7lsNJd@ep-plain-hall-abr68bhp-pooler.eu-west-2.aws.neon.tech/neondb?sslmode=require',
+  connectionString: process.env.DATABASE_URL,
   ssl: { rejectUnauthorized: false }
 });
 
