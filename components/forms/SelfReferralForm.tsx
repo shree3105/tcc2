@@ -25,26 +25,38 @@ export default function SelfReferralForm() {
       message: data.get('message') as string,
     };
 
-    try {
-      await fetch('/api/self-refer', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload),
-      });
+    // Save to Neon and email the practice independently, so a failure in one
+    // channel never prevents the other.
+    const saveToDb = fetch('/api/self-refer', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+    })
+      .then((r) => r.ok)
+      .catch(() => false);
 
-      await fetch('https://api.web3forms.com/submit', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ access_key: integrations.web3formsKey, ...payload }),
-      });
+    const sendEmail = fetch('https://api.web3forms.com/submit', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+      body: JSON.stringify({
+        access_key: integrations.web3formsKey,
+        subject: `New self-referral – ${payload.name}`,
+        from_name: payload.name,
+        ...payload,
+      }),
+    })
+      .then((r) => (r.ok ? r.json() : null))
+      .then((j) => Boolean(j && j.success))
+      .catch(() => false);
 
+    const [dbOk, emailOk] = await Promise.all([saveToDb, sendEmail]);
+
+    if (dbOk || emailOk) {
       setSubmitted(true);
-    } catch (err) {
-      console.error('Self-referral submission error:', err);
+    } else {
       setError(true);
-    } finally {
-      setLoading(false);
     }
+    setLoading(false);
   };
 
   if (submitted) {

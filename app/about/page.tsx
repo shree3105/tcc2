@@ -19,8 +19,8 @@ export default function AboutPage() {
         subtitle={`${practice.consultant.credentials} · ${practice.consultant.title}`}
       />
 
-      <section className="container-page py-14">
-        <div className="grid gap-12 lg:grid-cols-3">
+      <section className="container-page py-10">
+        <div className="grid gap-10 lg:grid-cols-3">
           {/* Photo + facts */}
           <div className="lg:col-span-1">
             <div className="mx-auto max-w-sm overflow-hidden rounded-2xl shadow-card lg:max-w-none">

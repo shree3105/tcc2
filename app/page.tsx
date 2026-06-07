@@ -8,13 +8,13 @@ export default function HomePage() {
     <>
       {/* Hero */}
       <section className="bg-gradient-to-b from-primary-50 to-sand-50">
-        <div className="container-page grid items-center gap-10 py-10 md:grid-cols-2 md:py-16 lg:py-20">
+        <div className="container-page grid items-center gap-8 py-10 md:grid-cols-2 md:py-16 lg:py-20">
           <div>
             <p className="inline-flex items-center gap-2 rounded-full bg-white px-4 py-1.5 text-sm font-semibold text-primary-700 shadow-sm">
               <span className="h-2 w-2 rounded-full bg-green-500" aria-hidden="true" />
               Consultant Cardiologist · Poole &amp; Bournemouth
             </p>
-            <h1 className="mt-5 font-serif text-4xl font-bold leading-tight text-primary-900 sm:text-5xl">
+            <h1 className="mt-4 font-serif text-3xl font-bold leading-tight text-primary-900 sm:text-4xl lg:text-5xl">
               Expert heart care, with time to listen
             </h1>
             <p className="prose-lg-readable mt-5 max-w-xl">
@@ -73,10 +73,10 @@ export default function HomePage() {
       </section>
 
       {/* About preview */}
-      <section className="container-page py-16">
-        <div className="grid items-center gap-10 lg:grid-cols-2">
+      <section className="container-page py-12">
+        <div className="grid items-center gap-8 lg:grid-cols-2">
           <div>
-            <h2 className="font-serif text-3xl font-bold text-primary-900">
+            <h2 className="font-serif text-2xl font-bold text-primary-900">
               About {practice.consultant.name}
             </h2>
             <p className="prose-lg-readable mt-4">
@@ -116,8 +116,8 @@ export default function HomePage() {
 
       {/* How it works */}
       <section className="bg-white">
-        <div className="container-page py-16">
-          <h2 className="text-center font-serif text-3xl font-bold text-primary-900">
+        <div className="container-page py-12">
+          <h2 className="text-center font-serif text-2xl font-bold text-primary-900">
             Getting seen is simple
           </h2>
           <div className="mt-10 grid gap-8 md:grid-cols-3">
@@ -139,8 +139,8 @@ export default function HomePage() {
       </section>
 
       {/* Reviews */}
-      <section className="container-page py-16">
-        <h2 className="text-center font-serif text-3xl font-bold text-primary-900">
+      <section className="container-page py-12">
+        <h2 className="text-center font-serif text-2xl font-bold text-primary-900">
           What our patients say
         </h2>
         <p className="mt-3 text-center text-primary-600">Independent reviews via Doctify</p>
@@ -151,11 +151,11 @@ export default function HomePage() {
 
       {/* CTA band */}
       <section className="bg-primary-700">
-        <div className="container-page flex flex-col items-center gap-6 py-14 text-center">
-          <h2 className="font-serif text-3xl font-bold text-white">
+        <div className="container-page flex flex-col items-center gap-5 py-12 text-center">
+          <h2 className="font-serif text-2xl font-bold text-white">
             Ready to take the next step?
           </h2>
-          <p className="max-w-2xl text-lg text-primary-100">
+          <p className="max-w-2xl text-primary-100">
             Arrange your cardiology appointment today, or make a referral online. We aim to
             respond the same day.
           </p>

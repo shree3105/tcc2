@@ -32,39 +32,46 @@ export default function GpReferralForm() {
       urgency: data.get('urgency') as string,
     };
 
-    try {
-      await fetch('/api/gp-refer', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(gp),
-      });
+    // Save to Neon and email the practice independently, so a failure in one
+    // channel never prevents the other.
+    const saveToDb = fetch('/api/gp-refer', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(gp),
+    })
+      .then((r) => r.ok)
+      .catch(() => false);
 
-      await fetch('https://api.web3forms.com/submit', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          access_key: integrations.web3formsKey,
-          subject: `GP Referral – ${gp.patient_name} (${gp.urgency === 'urgent' ? 'URGENT' : 'Normal'})`,
-          from_name: gp.gp_name,
-          'GP Name': gp.gp_name,
-          'GP Practice': gp.gp_practice,
-          'GP Email': gp.gp_email,
-          'GP Phone': gp.gp_phone,
-          'Patient Name': gp.patient_name,
-          'Patient DOB': gp.patient_dob || 'Not provided',
-          'Patient NHS Number': gp.patient_nhs_number || 'Not provided',
-          'Reason for Referral': gp.reason,
-          Urgency: gp.urgency,
-        }),
-      });
+    const sendEmail = fetch('https://api.web3forms.com/submit', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+      body: JSON.stringify({
+        access_key: integrations.web3formsKey,
+        subject: `GP Referral – ${gp.patient_name} (${gp.urgency === 'urgent' ? 'URGENT' : 'Normal'})`,
+        from_name: gp.gp_name,
+        'GP Name': gp.gp_name,
+        'GP Practice': gp.gp_practice,
+        'GP Email': gp.gp_email,
+        'GP Phone': gp.gp_phone,
+        'Patient Name': gp.patient_name,
+        'Patient DOB': gp.patient_dob || 'Not provided',
+        'Patient NHS Number': gp.patient_nhs_number || 'Not provided',
+        'Reason for Referral': gp.reason,
+        Urgency: gp.urgency,
+      }),
+    })
+      .then((r) => (r.ok ? r.json() : null))
+      .then((j) => Boolean(j && j.success))
+      .catch(() => false);
 
+    const [dbOk, emailOk] = await Promise.all([saveToDb, sendEmail]);
+
+    if (dbOk || emailOk) {
       setSubmitted(true);
-    } catch (err) {
-      console.error('GP referral submission error:', err);
+    } else {
       setError(true);
-    } finally {
-      setLoading(false);
     }
+    setLoading(false);
   };
 
   if (submitted) {

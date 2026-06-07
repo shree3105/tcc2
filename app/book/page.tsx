@@ -17,7 +17,7 @@ export default function BookPage() {
         title="Book an appointment"
         subtitle={`Arrange your consultation with ${practice.consultant.name}. ${practice.contact.responseTime}`}
       />
-      <section className="container-page py-14">
+      <section className="container-page py-10">
         <div className="mx-auto max-w-4xl">
           <p className="mb-6 flex items-center gap-2.5 rounded-xl bg-primary-50 px-5 py-4 text-lg text-primary-800">
             <svg className="h-6 w-6 flex-shrink-0 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">

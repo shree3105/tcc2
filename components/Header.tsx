@@ -35,13 +35,13 @@ export default function Header() {
   return (
     <header className="sticky top-0 z-50 border-b border-primary-100 bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/80">
       <div className="container-page">
-        <div className="flex h-20 items-center justify-between gap-4">
+        <div className="flex h-16 items-center justify-between gap-4">
           {/* Brand */}
           <Link href="/" className="flex flex-col leading-tight" aria-label={`${practice.name} — home`}>
-            <span className="font-serif text-xl font-semibold text-primary-900 sm:text-2xl">
+            <span className="font-serif text-lg font-semibold text-primary-900 sm:text-xl">
               {practice.name}
             </span>
-            <span className="text-xs text-primary-600 sm:text-sm">
+            <span className="hidden whitespace-nowrap text-xs text-primary-600 sm:block">
               {practice.consultant.name} · {practice.consultant.title}
             </span>
           </Link>
@@ -55,7 +55,7 @@ export default function Header() {
                   key={link.href}
                   href={link.href}
                   aria-current={active ? 'page' : undefined}
-                  className={`rounded-lg px-3 py-2 text-base font-medium transition-colors ${
+                  className={`rounded-lg px-2.5 py-1.5 text-[0.95rem] font-medium transition-colors ${
                     active
                       ? 'bg-primary-50 text-primary-800'
                       : 'text-primary-700 hover:bg-primary-50 hover:text-primary-900'
@@ -79,7 +79,7 @@ export default function Header() {
                 Patient Portal
               </a>
             )}
-            <BookAppointmentButton className="btn-primary !px-5 !py-2.5 !text-base" />
+            <BookAppointmentButton className="btn-primary !px-4 !py-2 !text-sm" />
           </div>
 
           {/* Mobile menu toggle */}

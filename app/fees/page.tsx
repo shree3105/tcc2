@@ -19,7 +19,7 @@ export default function FeesPage() {
         subtitle="We welcome both insured and self-paying patients, with transparent pricing and no hidden surprises."
       />
 
-      <section className="container-page py-14">
+      <section className="container-page py-10">
         <div className="grid gap-8 lg:grid-cols-2">
           {/* Insured patients */}
           <div className="card p-8">

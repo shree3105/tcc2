@@ -19,8 +19,8 @@ export default function ReferralsPage() {
         subtitle={`Whether you are a patient or a referring GP, our online forms take just a couple of minutes. ${practice.contact.responseTime}`}
       />
 
-      <section className="container-page py-14">
-        <div className="grid gap-10 lg:grid-cols-2">
+      <section className="container-page py-10">
+        <div className="grid gap-8 lg:grid-cols-2">
           {/* Self referral */}
           <div className="card p-8">
             <span className="inline-flex rounded-full bg-primary-50 px-3 py-1 text-sm font-semibold text-primary-700">

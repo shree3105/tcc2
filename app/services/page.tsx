@@ -39,7 +39,7 @@ export default function ServicesPage() {
         subtitle="From a one-off heart-health check to the ongoing management of complex conditions, here are the areas we look after and the tests we can arrange."
       />
 
-      <section className="container-page py-14">
+      <section className="container-page py-10">
         <h2 className="font-serif text-2xl font-bold text-primary-900">Conditions we treat</h2>
         <div className="mt-6 grid gap-6 md:grid-cols-2">
           {conditions.map((c) => (
@@ -52,7 +52,7 @@ export default function ServicesPage() {
       </section>
 
       <section className="bg-white">
-        <div className="container-page py-14">
+        <div className="container-page py-10">
           <h2 className="font-serif text-2xl font-bold text-primary-900">Tests &amp; investigations</h2>
           <p className="prose-lg-readable mt-3 max-w-3xl">
             Where further information is needed, the following investigations can be arranged
@@ -71,7 +71,7 @@ export default function ServicesPage() {
         </div>
       </section>
 
-      <section className="container-page py-14">
+      <section className="container-page py-10">
         <div className="card flex flex-col items-center gap-5 p-8 text-center">
           <h2 className="font-serif text-2xl font-bold text-primary-900">
             Not sure what you need?

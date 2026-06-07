@@ -47,8 +47,8 @@ export default function PatientInfoPage() {
         subtitle="A little preparation helps us make the most of your appointment. Here is everything you need to know."
       />
 
-      <section className="container-page py-14">
-        <div className="grid gap-10 lg:grid-cols-2">
+      <section className="container-page py-10">
+        <div className="grid gap-8 lg:grid-cols-2">
           <div>
             <h2 className="font-serif text-2xl font-bold text-primary-900">Your appointment</h2>
             <p className="prose-lg-readable mt-3">
@@ -75,7 +75,7 @@ export default function PatientInfoPage() {
 
       {/* FAQs */}
       <section className="bg-white">
-        <div className="container-page py-14">
+        <div className="container-page py-10">
           <h2 className="font-serif text-2xl font-bold text-primary-900">Common questions</h2>
           <div className="mt-6 divide-y divide-primary-100">
             {faqs.map((f) => (
@@ -94,7 +94,7 @@ export default function PatientInfoPage() {
       </section>
 
       {/* Urgent notice */}
-      <section className="container-page py-14">
+      <section className="container-page py-10">
         <div className="rounded-2xl border-l-4 border-red-500 bg-red-50 p-6">
           <h2 className="font-serif text-xl font-bold text-red-800">Feeling unwell right now?</h2>
           <p className="mt-2 text-lg text-red-900">
