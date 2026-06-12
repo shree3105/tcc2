@@ -1,4 +1,6 @@
 import Link from 'next/link';
+import Image from 'next/image';
+import awardBadge from '@/public/ptexperience.png';
 import { practice } from '@/lib/config';
 import BookAppointmentButton from '@/components/BookAppointmentButton';
 import Reviews from '@/components/Reviews';
@@ -34,22 +36,26 @@ export default function HomePage() {
                 {practice.contact.phone}
               </a>
             </p>
+            <p className="mt-2 text-base text-primary-600">
+              Appointments in person, or by secure video and telephone.
+            </p>
           </div>
 
           {/* Photo — fixed aspect ratio so it stays balanced on every device */}
           <div className="relative mx-auto w-full max-w-sm md:order-last md:max-w-md lg:max-w-none">
             <div className="overflow-hidden rounded-2xl shadow-card">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
+              <Image
                 src={practice.consultant.photo}
                 alt={`${practice.consultant.name}, ${practice.consultant.title}`}
                 className="aspect-[4/5] w-full object-cover object-top"
+                priority
+                placeholder="blur"
+                sizes="(min-width: 768px) 50vw, 100vw"
               />
             </div>
             {/* Award badge */}
             <div className="absolute -bottom-5 -left-4 hidden rounded-xl bg-white p-3 shadow-card sm:block">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/ptexperience.png" alt="Doctify Great Patient Experience Award 2026" className="h-16 w-auto lg:h-20" />
+              <Image src={awardBadge} alt="Doctify Great Patient Experience Award 2026" className="h-16 w-auto lg:h-20" />
             </div>
           </div>
         </div>

@@ -5,22 +5,32 @@ in Poole & Bournemouth. Built with Next.js (App Router), designed for an older
 patient base (large type, high contrast, clear navigation) and **ready to plug
 in** to practice-management software (Carebit / Semble / TouchPoints / iMedDoc).
 
+## Branches
+
+- **`main`** — production. Every push deploys the live site on Vercel.
+- **`development`** — the single development branch. Every push builds a
+  Vercel **preview** deployment. Merge `development` → `main` to go live.
+
 ## Features
 
 - **Multi-page site**: Home, About, Conditions & Services, Fees & Insurance,
-  Patient Information, Referrals, Contact, plus a `/book` appointments page.
-- **Accessibility-first**: 18px base text, large tap targets, visible keyboard
+  Patient Information, Referrals, Contact, Privacy, plus a `/book`
+  appointments page.
+- **Accessibility-first**: large type, big tap targets, visible keyboard
   focus, skip-to-content link, semantic HTML, reduced-motion support.
-- **Self-referral & GP-referral forms**: dual submission (Neon Postgres + email
-  via Web3Forms).
+- **Self-referral & GP-referral forms**: one validated API endpoint saves to
+  Neon Postgres **and** emails the practice (Web3Forms) server-side — if one
+  channel fails, the other still captures the referral. Honeypot spam
+  protection included.
 - **Integration-ready layer**: online booking, patient portal and online
   payments are all driven by environment variables — connect a provider later
   with **zero code changes**. See [INTEGRATIONS.md](./INTEGRATIONS.md).
-- **Patient reviews** via Doctify, **insurer logos**, SEO metadata.
+- **Patient reviews** via Doctify, **insurer logos** (optimised via
+  `next/image`), SEO metadata, JSON-LD structured data, sitemap & robots.
 
 ## Tech Stack
 
-Next.js 15 · React 19 · TypeScript · Tailwind CSS 3 · Neon (Postgres) · Vercel
+Next.js 15 · React 19 · TypeScript · Tailwind CSS 3 · Neon (Postgres, serverless driver) · Vercel
 
 ## Quick Start
 
@@ -32,15 +42,17 @@ npm run dev                  # http://localhost:3000
 
 ## Environment Variables
 
-See [.env.example](./.env.example) for the full list. The only server-side
-secret is `DATABASE_URL`; everything else is a public (`NEXT_PUBLIC_*`) URL or
-key. Integration URLs can be left blank until a provider is live.
+See [.env.example](./.env.example) for the full list. The server-side secrets
+are `DATABASE_URL` and `WEB3FORMS_ACCESS_KEY`; everything else is a public
+(`NEXT_PUBLIC_*`) URL or id. Integration URLs can be left blank until a
+provider is live. Set the same values in the Vercel dashboard (Preview +
+Production environments).
 
 ## Project Structure
 
 ```
 app/
-  layout.tsx            # Shared header, footer, fonts, metadata
+  layout.tsx            # Shared header, footer, fonts, metadata, JSON-LD
   page.tsx              # Home
   about/                # About Dr Khambekar
   services/             # Conditions & Services
@@ -49,42 +61,41 @@ app/
   referrals/            # Self-referral + GP referral forms
   contact/              # Contact details & locations
   book/                 # Online booking (integration-ready)
+  privacy/              # Privacy policy (UK GDPR)
+  robots.ts             # robots.txt
+  sitemap.ts            # sitemap.xml
+  manifest.ts           # web app manifest
   api/
-    self-refer/route.ts # Self-referral -> Neon
-    gp-refer/route.ts   # GP referral -> Neon
+    referrals/route.ts  # Validates + saves to Neon + emails the practice
 components/             # Header, Footer, BookingWidget, forms, etc.
 lib/
   config.ts             # Practice details + integration env layer (edit here)
-  db.ts                 # Neon connection pool
+  db.ts                 # Neon serverless driver + schema bootstrap
+scripts/
+  setup-db.js           # One-off: create unified table & migrate legacy rows
 ```
 
 To update clinic details (phone, email, locations, areas of interest),
 edit [lib/config.ts](./lib/config.ts) — it is the single source of truth.
 
-## Database Setup
+## Database
 
-```sql
-CREATE TABLE IF NOT EXISTS submissions (
-  id SERIAL PRIMARY KEY,
-  name VARCHAR(255) NOT NULL,
-  email VARCHAR(255) NOT NULL,
-  phone VARCHAR(50),
-  message TEXT NOT NULL,
-  created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
-);
-```
-
-The `gp_referrals` table can be created with:
+All referrals live in a single `referrals` table (`type` = `self` | `gp`,
+plus a `status` column for simple triage: `new → contacted → booked → closed`).
+The table is created automatically on first use; to migrate rows from the
+legacy `submissions` / `gp_referrals` tables, run once:
 
 ```bash
-DATABASE_URL="postgres://..." node create_gp_table.js
+DATABASE_URL="postgres://..." npm run setup-db
 ```
+
+The legacy tables are left untouched — drop them manually once you have
+verified the migration.
 
 ## Deployment
 
-This branch is safe to preview on Vercel without touching production. When
-ready, merge to `main`. Set environment variables in the Vercel dashboard for
-both Preview and Production environments.
+Push to `development` for a Vercel preview; merge to `main` to deploy
+production. Environment variables are managed in the Vercel dashboard.
 
 ## Contact
 

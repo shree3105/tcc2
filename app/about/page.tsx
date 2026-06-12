@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import Image from 'next/image';
 import { practice } from '@/lib/config';
 import PageHero from '@/components/PageHero';
 import BookAppointmentButton from '@/components/BookAppointmentButton';
@@ -24,11 +25,13 @@ export default function AboutPage() {
           {/* Photo + facts */}
           <div className="lg:col-span-1">
             <div className="mx-auto max-w-sm overflow-hidden rounded-2xl shadow-card lg:max-w-none">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
+              <Image
                 src={practice.consultant.photo}
                 alt={`${practice.consultant.name}, ${practice.consultant.title}`}
                 className="aspect-[4/5] w-full object-cover object-top"
+                priority
+                placeholder="blur"
+                sizes="(min-width: 1024px) 33vw, 24rem"
               />
             </div>
             <div className="card mt-6 p-6">

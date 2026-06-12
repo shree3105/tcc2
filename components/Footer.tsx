@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import { practice, insurers, integrations, portalEnabled } from '@/lib/config';
 
 export default function Footer() {
@@ -22,8 +23,7 @@ export default function Footer() {
                 className="transition-opacity hover:opacity-70"
                 aria-label={p.alt}
               >
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={p.src} alt={p.alt} className="h-9 w-auto object-contain" />
+                <Image src={p.src} alt={p.alt} className="h-9 w-auto object-contain" sizes="120px" />
               </a>
             ))}
           </div>
@@ -72,6 +72,7 @@ export default function Footer() {
             <li><Link className="hover:text-primary-900 hover:underline" href="/services">Conditions &amp; Services</Link></li>
             <li><Link className="hover:text-primary-900 hover:underline" href="/fees">Fees &amp; Insurance</Link></li>
             <li><Link className="hover:text-primary-900 hover:underline" href="/referrals">Make a Referral</Link></li>
+            <li><Link className="hover:text-primary-900 hover:underline" href="/privacy">Privacy Policy</Link></li>
             {portalEnabled && (
               <li>
                 <a className="hover:text-primary-900 hover:underline" href={integrations.patientPortalUrl} target="_blank" rel="noopener noreferrer">
