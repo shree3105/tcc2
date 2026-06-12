@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import Image from 'next/image';
 import { practice, insurers, integrations, payInvoiceEnabled } from '@/lib/config';
 import PageHero from '@/components/PageHero';
 import BookAppointmentButton from '@/components/BookAppointmentButton';
@@ -33,8 +34,7 @@ export default function FeesPage() {
             <div className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-4">
               {insurers.map((p) => (
                 <a key={p.alt} href={p.href} target="_blank" rel="noopener noreferrer" aria-label={p.alt} className="transition-opacity hover:opacity-70">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={p.src} alt={p.alt} className="h-8 w-auto object-contain" />
+                  <Image src={p.src} alt={p.alt} className="h-8 w-auto object-contain" sizes="110px" />
                 </a>
               ))}
             </div>

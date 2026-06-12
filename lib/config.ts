@@ -23,13 +23,28 @@
  * ---------------------------------------------------------------------------
  */
 
+import type { StaticImageData } from 'next/image';
+import consultantPhoto from '@/public/Photo.jpg';
+import avivaLogo from '@/public/AVIVA-logo.jpg';
+import axaLogo from '@/public/AXA-logo.jpg';
+import cignaLogo from '@/public/Cigna_logo.webp';
+import healixLogo from '@/public/healix-logo.jpg';
+import simplyhealthLogo from '@/public/simplyhealth-logo.webp';
+import vitalityLogo from '@/public/Vitality-logo.jpg';
+import wpaLogo from '@/public/WPA-logo.webp';
+import bupaLogo from '@/public/Bupa-logo.webp';
+import nuffieldLogo from '@/public/nuffield-logo.png';
+import allianzLogo from '@/public/allianz-logo.png';
+
+export const siteUrl = 'https://thecardiology.clinic';
+
 export const practice = {
   name: 'The Cardiology Clinic',
   consultant: {
     name: 'Dr Sujata Khambekar',
     credentials: 'MBBS, MD (Med), DNB, FRCP',
     title: 'Consultant Cardiologist',
-    photo: '/Photo.jpg',
+    photo: consultantPhoto,
   },
   tagline: 'Expert, compassionate cardiology care in Poole & Bournemouth',
   contact: {
@@ -55,17 +70,17 @@ export const practice = {
   ],
 } as const;
 
-export const insurers: { src: string; alt: string; href: string }[] = [
-  { src: '/AVIVA-logo.jpg', alt: 'Aviva', href: 'https://www.aviva.co.uk/health/health-products/health-insurance/' },
-  { src: '/AXA-logo.jpg', alt: 'AXA Health', href: 'https://www.axahealth.co.uk/' },
-  { src: '/Cigna_logo.webp', alt: 'Cigna', href: 'https://www.cigna.co.uk/' },
-  { src: '/healix-logo.jpg', alt: 'Healix', href: 'https://healixhealthservices.co.uk/' },
-  { src: '/simplyhealth-logo.webp', alt: 'Simply Health', href: 'https://www.simplyhealth.co.uk/' },
-  { src: '/Vitality-logo.jpg', alt: 'Vitality', href: 'https://www.vitality.co.uk/' },
-  { src: '/WPA-logo.webp', alt: 'WPA', href: 'https://www.wpa.org.uk/' },
-  { src: '/Bupa-logo.webp', alt: 'Bupa', href: 'https://finder.bupa.co.uk/Consultant/view/226316/dr_sujata_khambekar' },
-  { src: '/nuffield-logo.png', alt: 'Nuffield Health', href: 'https://www.nuffieldhealth.com/consultants/dr-sujata-khambekar' },
-  { src: '/allianz-logo.png', alt: 'Allianz Healthcare', href: 'https://www.allianz.co.uk/' },
+export const insurers: { src: StaticImageData; alt: string; href: string }[] = [
+  { src: avivaLogo, alt: 'Aviva', href: 'https://www.aviva.co.uk/health/health-products/health-insurance/' },
+  { src: axaLogo, alt: 'AXA Health', href: 'https://www.axahealth.co.uk/' },
+  { src: cignaLogo, alt: 'Cigna', href: 'https://www.cigna.co.uk/' },
+  { src: healixLogo, alt: 'Healix', href: 'https://healixhealthservices.co.uk/' },
+  { src: simplyhealthLogo, alt: 'Simply Health', href: 'https://www.simplyhealth.co.uk/' },
+  { src: vitalityLogo, alt: 'Vitality', href: 'https://www.vitality.co.uk/' },
+  { src: wpaLogo, alt: 'WPA', href: 'https://www.wpa.org.uk/' },
+  { src: bupaLogo, alt: 'Bupa', href: 'https://finder.bupa.co.uk/Consultant/view/226316/dr_sujata_khambekar' },
+  { src: nuffieldLogo, alt: 'Nuffield Health', href: 'https://www.nuffieldhealth.com/consultants/dr-sujata-khambekar' },
+  { src: allianzLogo, alt: 'Allianz Healthcare', href: 'https://www.allianz.co.uk/' },
 ];
 
 /** Third-party integration endpoints (empty string = not configured yet). */
@@ -75,8 +90,13 @@ export const integrations = {
   patientPortalUrl: process.env.NEXT_PUBLIC_PATIENT_PORTAL_URL ?? '',
   payInvoiceUrl: process.env.NEXT_PUBLIC_PAY_INVOICE_URL ?? '',
   doctifyWidgetId: process.env.NEXT_PUBLIC_DOCTIFY_WIDGET_ID ?? '037ze27k',
-  // Public access key (safe to expose) used for the email-notification backup.
-  web3formsKey: process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY ?? '0e7f0c0a-5e94-46c9-9e95-cd71a82b8c38',
+  // Used server-side only (the API route emails the practice a copy of each
+  // referral). The NEXT_PUBLIC_ name is still read for backwards compatibility
+  // with existing Vercel env settings.
+  web3formsKey:
+    process.env.WEB3FORMS_ACCESS_KEY ??
+    process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY ??
+    '0e7f0c0a-5e94-46c9-9e95-cd71a82b8c38',
 } as const;
 
 /** True when online booking (embed or external link) is available. */

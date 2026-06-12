@@ -3,7 +3,22 @@ import type { Metadata } from 'next';
 import { Inter, Source_Serif_4 } from 'next/font/google';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
-import { practice } from '@/lib/config';
+import { practice, siteUrl } from '@/lib/config';
+
+/** Structured data so search engines understand this is a medical practice. */
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@type': 'Physician',
+  name: practice.consultant.name,
+  url: siteUrl,
+  image: `${siteUrl}${practice.consultant.photo.src}`,
+  medicalSpecialty: 'Cardiovascular',
+  telephone: practice.contact.phoneHref.replace('tel:', ''),
+  email: practice.contact.email,
+  areaServed: ['Poole', 'Bournemouth', 'Dorset'],
+  worksFor: { '@type': 'MedicalClinic', name: practice.name, url: siteUrl },
+  workLocation: practice.locations.map((name) => ({ '@type': 'Hospital', name })),
+};
 
 const sans = Inter({
   subsets: ['latin'],
@@ -18,7 +33,7 @@ const serif = Source_Serif_4({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://thecardiology.clinic'),
+  metadataBase: new URL(siteUrl),
   title: {
     default: `${practice.name} — ${practice.consultant.name}, Consultant Cardiologist`,
     template: `%s · ${practice.name}`,
@@ -46,6 +61,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en-GB" className={`${sans.variable} ${serif.variable}`}>
       <body className="flex min-h-screen flex-col font-sans">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+        />
         <a
           href="#main-content"
           className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-lg focus:bg-primary-700 focus:px-5 focus:py-3 focus:text-white"
